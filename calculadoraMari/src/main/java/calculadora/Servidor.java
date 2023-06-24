@@ -7,6 +7,7 @@ package calculadora;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
+import javax.xml.ws.Endpoint;
 
 /**
  *
@@ -16,7 +17,9 @@ public class Servidor {
     public static void main (String[] args){
         try {
             Registry r = java.rmi.registry.LocateRegistry.createRegistry(1099);
-            r.rebind("Calculadora", new Rmi());
+            r.bind("Calculadora", new Rmi());
+            String address = "http://localhost:8080/calculadora";
+            Endpoint.publish(address, new CalculadoraResource());
             JOptionPane.showMessageDialog(null, "Conectado");    
             
         } catch (Exception e){
