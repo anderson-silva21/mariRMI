@@ -1,77 +1,29 @@
 package calculadora;
 
-import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
-import java.lang.Math;
-import java.util.concurrent.locks.ReentrantLock;
+import java.rmi.server.UnicastRemoteObject;
+import javax.jws.WebService;
 
-public class Rmi extends UnicastRemoteObject implements Calculadora {
-    private ReentrantLock lock; // Adicionando o lock
-
+@WebService
+public class Rmi extends UnicastRemoteObject implements Calculadora{
     public Rmi() throws RemoteException {
-        lock = new ReentrantLock(); // Inicializando o lock
+        super();
     }
 
     public int add(int a, int b) throws RemoteException {
-        lock.lock(); // Obtendo o lock antes de executar a operação
-        try {
-            return a + b;
-        } finally {
-            lock.unlock(); // Liberando o lock após a operação
-        }
+        System.out.println(a + b);
+        return a + b;
     }
 
     public int sub(int a, int b) throws RemoteException {
-        lock.lock();
-        try {
-            return a - b;
-        } finally {
-            lock.unlock();
-        }
+        return a - b;
     }
 
     public int mul(int a, int b) throws RemoteException {
-        lock.lock();
-        try {
-            return a * b;
-        } finally {
-            lock.unlock();
-        }
+        return a * b;
     }
 
     public double div(int a, int b) throws RemoteException {
-        lock.lock();
-        try {
-            return a / b;
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public double pot(int a, int b) throws RemoteException {
-        lock.lock();
-        try {
-            return Math.pow(a, b);
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public double root(int a, double b) throws RemoteException {
-        lock.lock();
-        try {
-            return Math.pow(a, (1 / b));
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public double rootsq(int a) throws RemoteException {
-        lock.lock();
-        try {
-            return Math.sqrt(a);
-        } finally {
-            lock.unlock();
-        }
+        return (double) a / b;
     }
 }
